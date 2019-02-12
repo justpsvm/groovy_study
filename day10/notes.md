@@ -102,7 +102,7 @@ f2 of Handler called...
 
 ## 使用尾递归编写程序
 
-这是一段乘阶函数:
+这是一段阶乘函数:
 
 ```groovy
 def factorial(BigInteger number){
@@ -148,3 +148,23 @@ factorial of 5000 is 24654
 ```
 
 要使用 `trampoline` 必须将递归函数实现为闭包。
+
+这里定义了一个 `factorial` 的变量，并将一个闭包赋值给他。这个闭包接收两个参数 一个是 number 一个是结果。 groovy 没有对语言本身做任何修改就实现了。
+
+> 这种递归之所以叫做尾递归，是因为方法中最后的表达式或者是结果递归，或者是调用自身。 相反，在直接递归计算阶乘时，最后的操作时 `*` ，乘法操作符。
+
+为了方便，我们可以给结果定义一个默认值 = 1:
+
+```groovy
+def factorial
+
+factorial = { int number,BigInteger theFactorial = 1-> 
+	number == 1 ? theFactorial : factorial.trampoline(number -1,number * theFactorial)
+}.trampoline()
+
+println "factorial of 5000 is ${factorial(5000).bitCount()}"
+```
+
+
+
+

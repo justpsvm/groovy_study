@@ -1,6 +1,12 @@
 def factorial
 
+/*
 factorial = { int number,BigInteger theFactorial -> 
+	number == 1 ? theFactorial : factorial.trampoline(number -1,number * theFactorial)
+}.trampoline()
+*/
+
+factorial = { int number,BigInteger theFactorial = 1-> 
 	number == 1 ? theFactorial : factorial.trampoline(number -1,number * theFactorial)
 }.trampoline()
 
